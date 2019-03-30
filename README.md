@@ -89,10 +89,10 @@ Returns true when _and only when_ the button is pressed. Until the button is rel
 **bool released()**
 Like `pressed()`, but round the other way. So if you hold down a button, and then release it... that is when it fires.
 
-**bool pressedFor()**
+**uint32_t pressedFor()**
 Like `pressed()`, but returns the delay in millis since the button is pressed.
 
-**bool releasedFor()**
+**uint32_t releasedFor()**
 Like `released()`, but returns the delay in millis since the button is released.
 
 **bool toggled()**
