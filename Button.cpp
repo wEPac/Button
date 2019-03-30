@@ -1,81 +1,104 @@
-/*
-	Button - a small library for Arduino to handle button debouncing
-	
-	MIT licensed.
+/* -----------------------------------------------------------------
+ * Fork from :
+ * 
+ * Button
+ * https://github.com/madleech/Button
+ * Button - a small library for Arduino to handle button debouncing
+ * 
+ * MIT licensed.
+ * 
+ * Copyright (c) 2016 Michael D K Adams 
+ * 
+ * -----------------------------------------------------------------
+ * Modified by Eric Paquot, 03-2019
+ * -----------------------------------------------------------------
 */
 
-#include "Button.h"
 #include <Arduino.h>
+#include "Button.h"
 
-Button::Button(uint8_t pin)
-:  _pin(pin)
-,  _delay(100)
-,  _state(HIGH)
-,  _has_changed(false)
-,  _ignore_until(0)
+
+
+Button::Button(uint8_t pin):
+  _pin(pin),
+  _state(HIGH),
+  _changed(false),
+  _debounce_ms(0)
 {
+  _delay = 100;   // how long in millis to debounce
 }
 
 void Button::begin()
 {
-	pinMode(_pin, INPUT_PULLUP);
+  pinMode(_pin, INPUT_PULLUP);
 }
 
-// 
+bool Button::changed()
+{
+  // true:  button has changed after a read() (private function)
+
+  if (!_changed) return false;
+
+  _changed = false;
+  return true;
+}
+
+//
 // public methods
-// 
+//
 
 bool Button::read()
 {
-	// ignore pin changes until after this delay time
-	if (_ignore_until > millis())
-	{
-		// ignore any changes during this period
-	}
-	
-	// pin has changed 
-	else if (digitalRead(_pin) != _state)
-	{
-		_ignore_until = millis() + _delay;
-		_state = !_state;
-		_has_changed = true;
-	}
-	
-	return _state;
+  if (_debounce_ms < millis())   // debouncing
+  {
+    if (digitalRead(_pin) != _state)  // pin has changed
+    {
+      _debounce_ms  = millis() + _delay;
+      _state        = !_state;
+      _changed      = true;
+    }
+  }
+
+  return _state;
 }
 
-// has the button been toggled from on -> off, or vice versa
 bool Button::toggled()
 {
-	read();
-	return has_changed();
+  // true:  toggled from on/off~off/on
+  // false: no change
+
+  read();
+  return changed();
 }
 
-// mostly internal, tells you if a button has changed after calling the read() function
-bool Button::has_changed()
-{
-	if (_has_changed == true)
-	{
-		_has_changed = false;
-		return true;
-	}
-	return false;
-}
-
-// has the button gone from off -> on
 bool Button::pressed()
 {
-	if (read() == PRESSED && has_changed() == true)
-		return true;
-	else
-		return false;
+  // true:  button gone from off -> on
+
+  if (read() == PRESSED && changed())   return true;
+  return false;
 }
 
-// has the button gone from on -> off
+uint32_t Button::pressedFor()
+{
+  // how long in millis the button is on
+
+  if (read() == PRESSED && !changed())  return uint32_t(millis() - _debounce_ms + _delay);
+  return false;
+}
+
 bool Button::released()
 {
-	if (read() == RELEASED && has_changed() == true)
-		return true;
-	else
-		return false;
+  // true:  button gone from on -> off
+
+  if (read() == RELEASED && changed())  return true;
+  return false;
+}
+
+uint32_t Button::releasedFor()
+{
+  // how long in millis the button is off
+
+  if (read() == RELEASED && !changed()) return uint32_t(millis() - _debounce_ms - _delay);
+  return false;
 }
