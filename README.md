@@ -1,3 +1,7 @@
+Changes:
+ - added `uint32_t pressedFor()` and `uint32_t releasedFor()`, they return delay in millis for long press or release.
+ - use a global `_delay` variable to preserve few bytes.
+
 Button
 ======
 
@@ -6,10 +10,6 @@ Button
 * Released under the MIT license.
 
 Button is a tiny library to make reading buttons very simple. It handles debouncing automatically, and monitoring of state.
-
-Changes:
- - added `uint32_t pressedFor()` and `uint32_t releasedFor()`, they return delay in millis for long press or release.
- - use a global `_delay` variable to preserve few bytes.
 
 Motivation
 ----------
