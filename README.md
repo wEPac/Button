@@ -7,6 +7,10 @@ Button
 
 Button is a tiny library to make reading buttons very simple. It handles debouncing automatically, and monitoring of state.
 
+Changes:
+ - added `uint32_t pressedFor()` and `uint32_t releasedFor()`, they return delay in millis for long press or release.
+ - use a global `_delay` variable to preserve few bytes.
+
 Motivation
 ----------
 Ahh buttons. Ahh debouncing! Sometimes you really wish you could ignore all the mechanics of debouncing, reading inputs, monitoring state, and just say... `if (button.pressed())` and know that it'll only run once each time you press a button.
@@ -84,6 +88,12 @@ Returns true when _and only when_ the button is pressed. Until the button is rel
 
 **bool released()**
 Like `pressed()`, but round the other way. So if you hold down a button, and then release it... that is when it fires.
+
+**bool pressedFor()**
+Like `pressed()`, but returns the delay in millis since the button is pressed.
+
+**bool releasedFor()**
+Like `released()`, but returns the delay in millis since the button is released.
 
 **bool toggled()**
 Returns true whenever the button is pressed or released, i.e., its position is toggled. To find out what the position actually is, you can use the `read()` function.
