@@ -19,34 +19,47 @@
 
 
 
+// uncomment this next line, or define it in your sketch to use pullDown button
+//#define BUTTON_PULLDOWN   
+
+
+
 #include "Arduino.h"
 
 
-#define PRESSED     LOW
-#define RELEASED    HIGH
+
+#ifdef BUTTON_PULLDOWN
+#  define PRESSED         HIGH
+#  define RELEASED        LOW
+#else
+#  define PRESSED         LOW
+#  define RELEASED        HIGH
+#endif
+
+#define   BOUTTON_DELAY   100     // how long in millis to debounce
 
 class Button
 {
   public:
     Button(uint8_t pin);
+    Button(uint8_t pin, uint8_t open_state);
 
-    uint8_t     _delay;
-
-    void        begin();
-    bool        read();
-    bool        toggled();
-    bool        pressed();
-    uint32_t    pressedFor();
-    bool        released();
-    uint32_t    releasedFor();
+    void          begin();
+    bool          read();
+    bool          changed();
+    bool          toggled();
+    bool          pressed();
+    uint32_t      pressedFor();
+    bool          released();
+    uint32_t      releasedFor();
 
   private:
-    uint8_t     _pin;
-    bool        _state;
-    bool        _changed;
-    uint32_t    _debounce_ms;
-
-    bool        changed();
+    uint8_t       _pin;
+    bool          _state;
+    bool          _changed;
+    uint32_t      _debounce_ms;
 };
 
-#endif
+
+
+#endif  // Button_h
