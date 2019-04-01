@@ -21,21 +21,37 @@
 
 Button::Button(uint8_t pin):
   _pin(pin),
-  _state(HIGH),
+  _state(RELEASED),
   _changed(false),
   _debounce_ms(0)
-{
-  _delay = 100;   // how long in millis to debounce
-}
+{}
+
+#ifdef BUTTON_PULLDOWN
+Button::Button(uint8_t pin, uint8_t open_state):
+  _pin(pin),
+  _state(open_state),
+  _changed(false),
+  _debounce_ms(0)
+{}
+#endif
 
 void Button::begin()
 {
+#ifdef BUTTON_PULLDOWN
+  pinMode(_pin, ((_state == LOW) ? INPUT : INPUT_PULLUP));
+#else
   pinMode(_pin, INPUT_PULLUP);
+#endif
 }
+
+
+
+// ======== public methods ========
 
 bool Button::changed()
 {
-  // true:  button has changed after a read() (private function)
+  // true:  button has changed after a read()
+  // Can be used to reinit BButton state
 
   if (!_changed) return false;
 
@@ -43,17 +59,15 @@ bool Button::changed()
   return true;
 }
 
-//
-// public methods
-//
-
 bool Button::read()
 {
+  // read the current Button then set its states
+  
   if (_debounce_ms < millis())   // debouncing
   {
     if (digitalRead(_pin) != _state)  // pin has changed
     {
-      _debounce_ms  = millis() + _delay;
+      _debounce_ms  = millis() + BOUTTON_DELAY;
       _state        = !_state;
       _changed      = true;
     }
@@ -83,7 +97,7 @@ uint32_t Button::pressedFor()
 {
   // how long in millis the button is on
 
-  if (read() == PRESSED && !changed())  return uint32_t(millis() - _debounce_ms + _delay);
+  if (read() == PRESSED && !changed())  return uint32_t(millis() - _debounce_ms + BOUTTON_DELAY);
   return false;
 }
 
@@ -99,6 +113,6 @@ uint32_t Button::releasedFor()
 {
   // how long in millis the button is off
 
-  if (read() == RELEASED && !changed()) return uint32_t(millis() - _debounce_ms - _delay);
+  if (read() == RELEASED && !changed()) return uint32_t(millis() - _debounce_ms - BOUTTON_DELAY);
   return false;
 }
