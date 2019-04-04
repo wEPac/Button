@@ -11,7 +11,6 @@
  * 
  * -----------------------------------------------------------------
  * Modified by Eric Paquot, 03-2019
- * https://github.com/wEPac
  * -----------------------------------------------------------------
 */
 
@@ -20,8 +19,10 @@
 
 
 
-// uncomment this next line, or define it in your sketch to use pullDown button
-//#define BUTTON_PULLDOWN   
+// comment this next line, to use button without pullUp
+#define BUTTON_PULLUP
+// comment this next line, to use button with release state to LOW
+#define RELEASE_STATE_HIGH
 
 
 
@@ -29,13 +30,15 @@
 
 
 
-#ifdef BUTTON_PULLDOWN
-#  define PRESSED         HIGH
-#  define RELEASED        LOW
-#else
+#ifdef RELEASE_STATE_HIGH
 #  define PRESSED         LOW
 #  define RELEASED        HIGH
+#else
+#  define PRESSED         HIGH
+#  define RELEASED        LOW
 #endif
+
+
 
 #define   BOUTTON_DELAY   100     // how long in millis to debounce
 
