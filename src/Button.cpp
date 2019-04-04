@@ -11,7 +11,6 @@
  * 
  * -----------------------------------------------------------------
  * Modified by Eric Paquot, 03-2019
- * https://github.com/wEPac
  * -----------------------------------------------------------------
 */
 
@@ -25,23 +24,15 @@ Button::Button(uint8_t pin):
   _state(RELEASED),
   _changed(false),
   _debounce_ms(0)
-{}
-
-#ifdef BUTTON_PULLDOWN
-Button::Button(uint8_t pin, uint8_t open_state):
-  _pin(pin),
-  _state(open_state),
-  _changed(false),
-  _debounce_ms(0)
-{}
-#endif
+{
+}
 
 void Button::begin()
 {
-#ifdef BUTTON_PULLDOWN
-  pinMode(_pin, ((_state == LOW) ? INPUT : INPUT_PULLUP));
-#else
+#ifdef BUTTON_PULLUP
   pinMode(_pin, INPUT_PULLUP);
+#else
+  pinMode(_pin, INPUT);
 #endif
 }
 
