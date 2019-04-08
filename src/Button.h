@@ -26,11 +26,11 @@
 
 
 
-#define     BOUTTON_DELAY   100             // how long in millis to debounce
+#define BOUTTON_DELAY     100           // how long in millis to debounce
 
 // comment this next line to use button (i.e. sensitive button)
-// it doesnt use pullup and it has release state to LOW
-//#define   BUTTON_PULLUP                   // button that uses the intern pullup
+//    it doesnt use pullup and it has release state to LOW
+#define BUTTON_PULLUP                   // button that uses the intern pullup
 
 
 #ifdef BUTTON_PULLUP
