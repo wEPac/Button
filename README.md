@@ -1,6 +1,8 @@
 Changes:
  - added `uint32_t pressedFor()` and `uint32_t releasedFor()`, they return delay in millis for long press or release.
  - use a global `_delay` variable to preserve few bytes.
+ - added the possibility to set the library to work with no pullpup and/or with released state is low level.
+ In your main sketch
 
 Button
 ======
