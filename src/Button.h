@@ -25,16 +25,15 @@
 
 
 
-#ifndef BUTTON_PULLDOWN                       // button that doesnt use the intern pullup
-#  define     BUTTON_PULLUP                   // button that uses the intern pullup
-#endif
-#ifndef BUTTON_RELEASE_STATE_LOW              // button with release state is low level
-#  define     BUTTON_RELEASE_STATE_HIGH       // button with release state is high level
-#endif
+
+#define     BOUTTON_DELAY   100             // how long in millis to debounce
+
+// comment this next line to use button (i.e. sensitive button)
+// it doesnt use pullup and it has release state to LOW
+//#define   BUTTON_PULLUP                   // button that uses the intern pullup
 
 
-
-#ifdef BUTTON_RELEASE_STATE_HIGH
+#ifdef BUTTON_PULLUP
 #  define PRESSED         LOW
 #  define RELEASED        HIGH
 #else
@@ -43,8 +42,6 @@
 #endif
 
 
-
-#define   BOUTTON_DELAY   100     // how long in millis to debounce
 
 class Button
 {
