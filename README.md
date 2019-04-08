@@ -4,8 +4,8 @@ Changes:
 ======
  - added `uint32_t pressedFor()` and `uint32_t releasedFor()`, they return delay in millis for long press or release.
  - use a global `_delay` variable to preserve few bytes.
- - added one line in the header to quickly set the library to work with pullpup/pulldown and/or with released state at low/high level.
-
+ - added one line in the header to quickly set the library to work with pullpup/HIGH level released state or with no_pullup/LOW level released state. 
+ 
 ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
 
 Button
