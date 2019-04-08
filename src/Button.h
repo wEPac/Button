@@ -19,18 +19,22 @@
 
 
 
-// comment this next line, to use button without pullUp
-#define BUTTON_PULLUP
-// comment this next line, to use button with release state to LOW
-#define RELEASE_STATE_HIGH
-
 
 
 #include "Arduino.h"
 
 
 
-#ifdef RELEASE_STATE_HIGH
+#ifndef BUTTON_PULLDOWN                       // button that doesnt use the intern pullup
+#  define     BUTTON_PULLUP                   // button that uses the intern pullup
+#endif
+#ifndef BUTTON_RELEASE_STATE_LOW              // button with release state is low level
+#  define     BUTTON_RELEASE_STATE_HIGH       // button with release state is high level
+#endif
+
+
+
+#ifdef BUTTON_RELEASE_STATE_HIGH
 #  define PRESSED         LOW
 #  define RELEASED        HIGH
 #else
