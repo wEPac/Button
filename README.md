@@ -4,12 +4,7 @@ Changes:
 ======
  - added `uint32_t pressedFor()` and `uint32_t releasedFor()`, they return delay in millis for long press or release.
  - use a global `_delay` variable to preserve few bytes.
- - added the possibility to set the library to work with pullpup/pulldown and/or with released state at low/high level.
- 
- In your main sketch, before to include the library:
- - add a `#define BUTTON_PULLDOWN` to use button without pullpup
- - add a `#define BUTTON_RELEASE_STATE_LOW` to use a button with low level when released
- - add a `#define BOUTTON_DELAY 50` to set debouncing delay to 50 millis (or any other value, by default it is set to 100)
+ - added one line in the header to quickly set the library to work with pullpup/pulldown and/or with released state at low/high level.
 
 ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
 
