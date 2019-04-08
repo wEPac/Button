@@ -6,7 +6,7 @@ Changes:
  - use a global `_delay` variable to preserve few bytes.
  - added the possibility to set the library to work with no pullpup and/or with released state is low level.
  
- In your main sketch:
+ In your main sketch, before to include the library:
  - add a `#define BUTTON_PULLDOWN` to use button without pullpup
  - add a `#define BUTTON_RELEASE_STATE_LOW` to use a button with low level when released
 
