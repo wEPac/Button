@@ -1,3 +1,5 @@
+¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+
 Changes:
 ======
  - added `uint32_t pressedFor()` and `uint32_t releasedFor()`, they return delay in millis for long press or release.
@@ -8,7 +10,7 @@ Changes:
  - add a '#define BUTTON_PULLDOWN' to use button without pullpup
  - add a '#define BUTTON_RELEASE_STATE_LOW' to use a button with low level when released
 
-======
+¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
 
 Button
 ======
